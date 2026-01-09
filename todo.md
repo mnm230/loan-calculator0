@@ -63,3 +63,15 @@
 - [x] Add currency selector (GBP/USD) to calculator creation form
 - [x] Update dashboard to allow direct calculator creation without onboarding
 - [x] Store user's preferred currency in calculator settings
+
+
+## Dashboard Filtering & Sorting
+
+- [x] Add search bar to filter calculators by name
+- [x] Add currency filter dropdown (All/USD/GBP)
+- [x] Add sort dropdown (Amount: High to Low, Amount: Low to High, Date: Newest, Date: Oldest)
+- [x] Implement client-side filtering logic
+- [x] Implement client-side sorting logic
+- [x] Show filtered/sorted results count
+- [x] Add "Clear Filters" button
+- [x] Show "No Results" state when filters return empty

@@ -2,20 +2,68 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calculator, Plus, TrendingUp, DollarSign, Calendar, Trash2 } from "lucide-react";
+import { Calculator, Plus, TrendingUp, DollarSign, Calendar, Trash2, Search, Filter, ArrowUpDown, Sparkles } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { getLoginUrl } from "@/const";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState, useMemo } from "react";
 
 export default function Dashboard() {
   const { user, loading: authLoading, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   const utils = trpc.useUtils();
+  
+  // Filter and sort state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currencyFilter, setCurrencyFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("date-newest");
 
   const { data: calculators, isLoading } = trpc.calculator.list.useQuery(undefined, {
     enabled: isAuthenticated,
   });
+  
+  // Filter and sort calculators
+  const filteredAndSortedCalculators = useMemo(() => {
+    if (!calculators) return [];
+    
+    let filtered = calculators;
+    
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(calc => 
+        calc.name.toLowerCase().includes(query) ||
+        calc.description?.toLowerCase().includes(query)
+      );
+    }
+    
+    // Apply currency filter
+    if (currencyFilter !== "all") {
+      filtered = filtered.filter(calc => calc.currency === currencyFilter);
+    }
+    
+    // Apply sorting
+    const sorted = [...filtered];
+    switch (sortBy) {
+      case "amount-high":
+        sorted.sort((a, b) => parseFloat(b.totalAmount) - parseFloat(a.totalAmount));
+        break;
+      case "amount-low":
+        sorted.sort((a, b) => parseFloat(a.totalAmount) - parseFloat(b.totalAmount));
+        break;
+      case "date-newest":
+        sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+      case "date-oldest":
+        sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        break;
+    }
+    
+    return sorted;
+  }, [calculators, searchQuery, currencyFilter, sortBy]);
 
   const deleteCalculator = trpc.calculator.delete.useMutation({
     onSuccess: () => {
@@ -110,6 +158,71 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
+        {/* Filters and Search */}
+        {!isLoading && calculators && calculators.length > 0 && (
+          <div className="mb-6 space-y-4">
+            <div className="flex flex-col md:flex-row gap-4">
+              {/* Search Bar */}
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search calculators..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              
+              {/* Currency Filter */}
+              <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <Filter className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Currencies</SelectItem>
+                  <SelectItem value="USD">USD Only</SelectItem>
+                  <SelectItem value="GBP">GBP Only</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {/* Sort Dropdown */}
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-full md:w-[200px]">
+                  <ArrowUpDown className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date-newest">Date: Newest First</SelectItem>
+                  <SelectItem value="date-oldest">Date: Oldest First</SelectItem>
+                  <SelectItem value="amount-high">Amount: High to Low</SelectItem>
+                  <SelectItem value="amount-low">Amount: Low to High</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Results Count */}
+            <div className="flex items-center justify-between text-sm text-muted-foreground">
+              <p>
+                Showing {filteredAndSortedCalculators.length} of {calculators.length} calculator{calculators.length !== 1 ? 's' : ''}
+              </p>
+              {(searchQuery || currencyFilter !== "all" || sortBy !== "date-newest") && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCurrencyFilter("all");
+                    setSortBy("date-newest");
+                  }}
+                >
+                  Clear Filters
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
+        
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
@@ -124,9 +237,9 @@ export default function Dashboard() {
               </Card>
             ))}
           </div>
-        ) : calculators && calculators.length > 0 ? (
+        ) : filteredAndSortedCalculators.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {calculators.map((calc) => (
+            {filteredAndSortedCalculators.map((calc) => (
               <Card
                 key={calc.id}
                 className="hover:shadow-lg transition-shadow cursor-pointer group relative"
@@ -178,6 +291,30 @@ export default function Dashboard() {
               </Card>
             ))}
           </div>
+        ) : calculators && calculators.length > 0 ? (
+          <Card className="text-center py-12">
+            <CardContent>
+              <div className="flex justify-center mb-4">
+                <div className="p-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full">
+                  <Search className="w-12 h-12 text-gray-400" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-2">No Calculators Found</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                No calculators match your current filters. Try adjusting your search or filters.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("");
+                  setCurrencyFilter("all");
+                  setSortBy("date-newest");
+                }}
+              >
+                Clear All Filters
+              </Button>
+            </CardContent>
+          </Card>
         ) : (
           <Card className="text-center py-12">
             <CardContent>
