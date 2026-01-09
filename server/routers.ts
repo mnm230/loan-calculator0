@@ -174,7 +174,9 @@ export const appRouter = router({
           },
         });
         
-        const suggestion = JSON.parse(response.choices[0]?.message?.content || '{}');
+        const messageContent = response.choices[0]?.message?.content;
+        const contentString = typeof messageContent === 'string' ? messageContent : '{}';
+        const suggestion = JSON.parse(contentString);
         return suggestion;
       }),
     
