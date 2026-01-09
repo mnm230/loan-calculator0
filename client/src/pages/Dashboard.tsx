@@ -191,14 +191,24 @@ export default function Dashboard() {
                 Get started by creating your first loan calculator. Our AI will help you set it up based on
                 your financial goals!
               </p>
-              <Button
-                size="lg"
-                onClick={() => setLocation("/onboarding")}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Create Your First Calculator
-              </Button>
+          <div className="flex gap-3 justify-center">
+            <Button
+              onClick={() => setLocation("/create")}
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Calculator
+            </Button>
+            <Button
+              onClick={() => setLocation("/onboarding")}
+              size="lg"
+              variant="outline"
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              Use AI Setup
+            </Button>
+          </div>
             </CardContent>
           </Card>
         )}

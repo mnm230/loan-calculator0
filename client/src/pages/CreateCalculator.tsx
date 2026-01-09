@@ -20,6 +20,7 @@ export default function CreateCalculator() {
   const [description, setDescription] = useState("");
   const [totalAmount, setTotalAmount] = useState(suggestedAmount || "");
   const [targetMonths, setTargetMonths] = useState(suggestedMonths || "");
+  const [currency, setCurrency] = useState("USD");
 
   const createCalculator = trpc.calculator.create.useMutation({
     onSuccess: (result) => {
@@ -45,7 +46,7 @@ export default function CreateCalculator() {
       description: description || undefined,
       totalAmount,
       targetMonths: targetMonths ? parseInt(targetMonths) : undefined,
-      currency: "USD",
+      currency,
     });
   };
 
@@ -98,13 +99,26 @@ export default function CreateCalculator() {
               />
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="currency">Currency *</Label>
+              <Select value={currency} onValueChange={setCurrency}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD ($)</SelectItem>
+                  <SelectItem value="GBP">GBP (£)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="amount">Total Loan Amount (USD) *</Label>
+                <Label htmlFor="amount">Total Loan Amount *</Label>
                 <Input
                   id="amount"
                   type="number"
-                  placeholder="300000"
+                  placeholder={currency === "USD" ? "300000" : "230000"}
                   value={totalAmount}
                   onChange={(e) => setTotalAmount(e.target.value)}
                   required
@@ -112,7 +126,7 @@ export default function CreateCalculator() {
                 {hasAISuggestions && suggestedAmount && (
                   <p className="text-xs text-blue-600 flex items-center gap-1">
                     <Sparkles className="w-3 h-3" />
-                    AI suggested: ${parseInt(suggestedAmount).toLocaleString()}
+                    AI suggested: {currency === "USD" ? "$" : "£"}{parseInt(suggestedAmount).toLocaleString()}
                   </p>
                 )}
               </div>

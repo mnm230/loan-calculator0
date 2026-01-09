@@ -55,3 +55,11 @@
 - [x] Test currency conversion (GBP to USD)
 - [x] Test authorization (prevent access to other user's data)
 - [x] All tests passing (8/8 tests passed)
+
+
+## New Requirements
+
+- [x] Make AI onboarding optional (add skip button)
+- [x] Add currency selector (GBP/USD) to calculator creation form
+- [x] Update dashboard to allow direct calculator creation without onboarding
+- [x] Store user's preferred currency in calculator settings
