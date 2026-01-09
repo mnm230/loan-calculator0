@@ -20,3 +20,38 @@
 - [x] Responsive design for all devices
 - [x] Local storage for payment persistence
 - [x] Session-based authentication
+
+
+## New Multi-User Platform Features
+
+- [x] Design database schema for users and their calculators
+- [x] Add calculators table to store user-specific loan data
+- [x] Add payments table to track all user payments
+- [x] Add userPreferences table for AI onboarding data
+- [x] Push database schema to production
+- [x] Implement Manus OAuth user authentication (using template's built-in auth)
+- [x] Create AI-powered onboarding questionnaire (5 questions with AI analysis)
+- [ ] Build personalized calculator dashboard for each user
+- [ ] Create calculator list/management page
+- [ ] Add ability to create multiple calculators per user
+- [ ] Implement calculator sharing/privacy settings
+- [ ] Add user profile page
+- [ ] Build landing page for new users
+- [ ] Create calculator creation wizard with AI assistance
+- [ ] Add data persistence to database instead of localStorage
+- [ ] Implement tRPC procedures for all calculator operations
+- [ ] Add user-specific analytics and insights
+
+- [x] Build personalized calculator dashboard for each user
+- [x] Create calculator list/management page
+- [x] Add ability to create multiple calculators per user
+- [x] Add AI-powered recommendations based on onboarding questions
+- [x] Implement calculator page with all features (payments, progress, celebrations)
+- [x] Add delete payment functionality
+- [x] Integrate dual currency support (USD/GBP) with live exchange rates
+- [x] Update routing to connect all pages
+- [x] Write comprehensive tests for calculator operations
+- [x] Write tests for payment operations (create, list, delete)
+- [x] Test currency conversion (GBP to USD)
+- [x] Test authorization (prevent access to other user's data)
+- [x] All tests passing (8/8 tests passed)

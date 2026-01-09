@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, calculators, Calculator, InsertCalculator, payments, Payment, InsertPayment, userPreferences, UserPreference, InsertUserPreference } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,80 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Calculator operations
+export async function createCalculator(calculator: InsertCalculator) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(calculators).values(calculator);
+  return result;
+}
+
+export async function getUserCalculators(userId: number): Promise<Calculator[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(calculators).where(eq(calculators.userId, userId));
+}
+
+export async function getCalculatorById(id: number): Promise<Calculator | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(calculators).where(eq(calculators.id, id)).limit(1);
+  return result[0];
+}
+
+export async function updateCalculator(id: number, data: Partial<InsertCalculator>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.update(calculators).set(data).where(eq(calculators.id, id));
+}
+
+export async function deleteCalculator(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.delete(calculators).where(eq(calculators.id, id));
+}
+
+// Payment operations
+export async function createPayment(payment: InsertPayment) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.insert(payments).values(payment);
+}
+
+export async function getCalculatorPayments(calculatorId: number): Promise<Payment[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(payments).where(eq(payments.calculatorId, calculatorId));
+}
+
+export async function deletePayment(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.delete(payments).where(eq(payments.id, id));
+}
+
+// User preferences operations
+export async function upsertUserPreferences(prefs: InsertUserPreference) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.insert(userPreferences).values(prefs).onDuplicateKeyUpdate({
+    set: prefs,
+  });
+}
+
+export async function getUserPreferences(userId: number): Promise<UserPreference | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(userPreferences).where(eq(userPreferences.userId, userId)).limit(1);
+  return result[0];
+}
