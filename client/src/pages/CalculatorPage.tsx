@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { AmortizationChart } from "@/components/AmortizationChart";
+import { PaymentProgressChart } from "@/components/PaymentProgressChart";
+import { PaymentHistoryChart } from "@/components/PaymentHistoryChart";
 
 export default function CalculatorPage() {
   const [, params] = useRoute("/calculator/:id");
@@ -310,6 +313,30 @@ export default function CalculatorPage() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* Chart Visualizations */}
+        {payments.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <AmortizationChart
+              totalAmount={calculator.totalAmount}
+              currency={calculator.currency}
+              payments={payments}
+              targetMonths={calculator.targetMonths || undefined}
+            />
+            <PaymentProgressChart
+              totalAmount={calculator.totalAmount}
+              currency={calculator.currency}
+              payments={payments}
+            />
+          </div>
+        )}
+
+        {payments.length > 0 && (
+          <PaymentHistoryChart
+            payments={payments}
+            currency={calculator.currency}
+          />
+        )}
 
         {/* Payment History */}
         <Card>
