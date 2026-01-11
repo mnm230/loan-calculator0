@@ -136,8 +136,8 @@ export default function CalculatorPage() {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(typeof amount === "string" ? parseFloat(amount) : amount);
   };
 
@@ -264,7 +264,9 @@ export default function CalculatorPage() {
               <div className="md:col-span-2">
                 <Input
                   type="number"
-                  placeholder="Enter amount"
+                  step="0.01"
+                  min="0"
+                  placeholder="Enter amount (e.g., 1234.56)"
                   value={paymentAmount}
                   onChange={(e) => setPaymentAmount(e.target.value)}
                   className="text-lg"

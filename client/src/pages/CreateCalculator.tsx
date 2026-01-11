@@ -119,7 +119,9 @@ export default function CreateCalculator() {
                 <Input
                   id="amount"
                   type="number"
-                  placeholder={currency === "USD" ? "300000" : "230000"}
+                  step="0.01"
+                  min="0"
+                  placeholder={currency === "USD" ? "300000.00" : "230000.00"}
                   value={totalAmount}
                   onChange={(e) => setTotalAmount(e.target.value)}
                   required
