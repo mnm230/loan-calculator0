@@ -10,6 +10,7 @@ import { getLoginUrl } from "@/const";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useMemo } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Dashboard() {
   const { user, loading: authLoading, isAuthenticated } = useAuth();
@@ -146,13 +147,16 @@ export default function Dashboard() {
               <p className="text-sm text-muted-foreground">Welcome back, {user?.name || "User"}!</p>
             </div>
           </div>
-          <Button
-            onClick={() => setLocation("/onboarding")}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            New Calculator
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              onClick={() => setLocation("/onboarding")}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              New Calculator
+            </Button>
+          </div>
         </div>
       </div>
 
