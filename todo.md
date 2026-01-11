@@ -130,3 +130,16 @@
 - [x] Update chart displays to show decimal values
 - [x] Update currency conversion calculations for decimal precision
 - [x] Test decimal input validation and edge cases
+
+
+## Loan Scenario Comparison Feature
+
+- [x] Create comparison page route and component
+- [x] Add calculator selection interface (multi-select)
+- [x] Build side-by-side comparison table with key metrics
+- [x] Create synchronized comparison charts
+- [x] Add comparison action button to dashboard
+- [x] Show total paid, remaining, progress for each calculator
+- [x] Display payment count and average payment comparison
+- [ ] Add projection comparison (completion dates)
+- [x] Test comparison with 2-4 calculators

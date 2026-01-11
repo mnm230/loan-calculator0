@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calculator, Plus, TrendingUp, DollarSign, Calendar, Trash2, Search, Filter, ArrowUpDown, Sparkles } from "lucide-react";
+import { Calculator, Plus, TrendingUp, DollarSign, Calendar, Trash2, Search, Filter, ArrowUpDown, Sparkles, GitCompare } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -149,6 +149,15 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            {calculators && calculators.length > 1 && (
+              <Button
+                variant="outline"
+                onClick={() => setLocation("/compare")}
+              >
+                <GitCompare className="w-4 h-4 mr-2" />
+                Compare
+              </Button>
+            )}
             <Button
               onClick={() => setLocation("/onboarding")}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"

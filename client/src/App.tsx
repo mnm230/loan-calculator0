@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import CreateCalculator from "./pages/CreateCalculator";
 import CalculatorPage from "./pages/CalculatorPage";
+import CompareCalculators from "./pages/CompareCalculators";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/create" component={CreateCalculator} />
       <Route path="/calculator/:id" component={CalculatorPage} />
+      <Route path="/compare" component={CompareCalculators} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
