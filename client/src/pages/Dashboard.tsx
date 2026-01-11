@@ -279,20 +279,20 @@ export default function Dashboard() {
                   )}
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg">
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-green-600" />
-                      <span className="text-sm font-medium">Total Amount</span>
+                      <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Total Amount</span>
                     </div>
-                    <span className="font-bold text-lg">{formatCurrency(calc.totalAmount)}</span>
+                    <span className="font-bold text-lg text-gray-900 dark:text-gray-100">{formatCurrency(calc.totalAmount)}</span>
                   </div>
                   {calc.targetMonths && (
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-purple-600" />
-                        <span className="text-sm font-medium">Target</span>
+                        <Calendar className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Target</span>
                       </div>
-                      <span className="font-semibold">{calc.targetMonths} months</span>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">{calc.targetMonths} months</span>
                     </div>
                   )}
                   <div className="pt-2">

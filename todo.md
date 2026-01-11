@@ -143,3 +143,12 @@
 - [x] Display payment count and average payment comparison
 - [ ] Add projection comparison (completion dates)
 - [x] Test comparison with 2-4 calculators
+
+
+## Dark Mode Fixes
+
+- [x] Investigate dark mode styling issues
+- [x] Fix background colors for dark mode
+- [x] Fix text visibility in dark mode
+- [x] Fix card styling in dark mode
+- [x] Test dark mode across all pages
