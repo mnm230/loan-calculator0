@@ -3,6 +3,7 @@ import { useRoute, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -31,6 +32,7 @@ export default function CalculatorPage() {
   const [currency, setCurrency] = useState("USD");
   const [exchangeRate, setExchangeRate] = useState(1);
   const [lastRateUpdate, setLastRateUpdate] = useState<Date | null>(null);
+  const [paymentNotes, setPaymentNotes] = useState("");
 
   const { data: calculator, isLoading: calcLoading } = trpc.calculator.get.useQuery(
     { id: calculatorId! },
@@ -46,6 +48,7 @@ export default function CalculatorPage() {
     onSuccess: () => {
       toast.success("Payment recorded!");
       setPaymentAmount("");
+      setPaymentNotes("");
       utils.payment.list.invalidate({ calculatorId: calculatorId! });
     },
     onError: (error) => {
@@ -105,11 +108,12 @@ export default function CalculatorPage() {
     const usdAmount = currency === "GBP" ? amount * exchangeRate : amount;
 
     createPayment.mutate({
-      calculatorId,
+      calculatorId: calculatorId!,
       amount: paymentAmount,
       currency,
-      usdAmount: usdAmount.toFixed(2),
-      exchangeRate: currency === "GBP" ? exchangeRate.toFixed(4) : undefined,
+      usdAmount: usdAmount.toString(),
+      exchangeRate: currency === "GBP" ? exchangeRate.toString() : undefined,
+      notes: paymentNotes || undefined,
       paymentDate: new Date(),
     });
   };
@@ -295,6 +299,19 @@ export default function CalculatorPage() {
               </div>
             )}
 
+            <div className="mt-4">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                Notes (Optional)
+              </label>
+              <Textarea
+                placeholder="Add a note about this payment (e.g., 'bonus payment', 'tax refund')..."
+                value={paymentNotes}
+                onChange={(e) => setPaymentNotes(e.target.value)}
+                rows={2}
+                className="resize-none"
+              />
+            </div>
+
             <Button
               className="w-full mt-4 bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white"
               size="lg"
@@ -393,6 +410,11 @@ export default function CalculatorPage() {
                             day: "numeric",
                           })}
                         </div>
+                        {payment.notes && (
+                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-2 italic">
+                            "{payment.notes}"
+                          </div>
+                        )}
                       </div>
                       <Button
                         variant="ghost"

@@ -167,3 +167,16 @@
 - [x] Update comparison page styling
 - [x] Ensure dark mode works with new minimalist design
 - [x] Test all pages for consistent minimalist look
+
+
+## Payment Notes Feature
+
+- [x] Add notes column to payments table in database schema
+- [x] Run database migration to add notes field
+- [x] Update payment creation backend to accept notes parameter
+- [x] Update payment list backend to return notes
+- [x] Add notes textarea input to payment form in UI
+- [x] Display notes in payment history table
+- [ ] Add edit notes functionality for existing payments
+- [x] Test payment notes with various text lengths
+- [x] Ensure notes are optional (can be empty)
