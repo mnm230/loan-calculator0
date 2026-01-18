@@ -255,7 +255,7 @@ export default function Dashboard() {
             {filteredAndSortedCalculators.map((calc) => (
               <Card
                 key={calc.id}
-                className="hover:shadow-lg transition-shadow cursor-pointer group relative"
+                className="hover:border-gray-400 dark:hover:border-gray-600 transition-colors cursor-pointer group relative border border-gray-200 dark:border-gray-700"
                 onClick={() => setLocation(`/calculator/${calc.id}`)}
               >
                 <Button
@@ -271,7 +271,7 @@ export default function Dashboard() {
                 </Button>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
+                    <TrendingUp className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                     {calc.name}
                   </CardTitle>
                   {calc.description && (
@@ -279,17 +279,17 @@ export default function Dashboard() {
                   )}
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
+                      <DollarSign className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Total Amount</span>
                     </div>
                     <span className="font-bold text-lg text-gray-900 dark:text-gray-100">{formatCurrency(calc.totalAmount)}</span>
                   </div>
                   {calc.targetMonths && (
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Target</span>
                       </div>
                       <span className="font-semibold text-gray-900 dark:text-gray-100">{calc.targetMonths} months</span>

@@ -152,3 +152,18 @@
 - [x] Fix text visibility in dark mode
 - [x] Fix card styling in dark mode
 - [x] Test dark mode across all pages
+
+
+## Minimalist Design Redesign
+
+- [x] Remove gradient backgrounds from calculator cards
+- [x] Replace with solid colors (white, light gray)
+- [x] Simplify shadows (use subtle borders instead)
+- [x] Increase spacing between elements
+- [x] Use minimal accent colors (one or two max)
+- [x] Clean up button styles (simpler, flatter)
+- [x] Update dashboard card styling
+- [x] Update calculator detail page styling
+- [x] Update comparison page styling
+- [x] Ensure dark mode works with new minimalist design
+- [x] Test all pages for consistent minimalist look

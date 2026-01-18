@@ -73,7 +73,7 @@ export default function CompareCalculators() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8">
@@ -81,7 +81,7 @@ export default function CompareCalculators() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
             Compare Loan Scenarios
           </h1>
           <p className="text-muted-foreground mt-2">
@@ -148,7 +148,7 @@ export default function CompareCalculators() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <TrendingDown className="w-5 h-5 text-blue-600" />
+                      <TrendingDown className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                       Amount Comparison
                     </CardTitle>
                   </CardHeader>
@@ -160,9 +160,9 @@ export default function CompareCalculators() {
                         <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                         <Tooltip formatter={(value: number) => formatCurrency(value)} />
                         <Legend />
-                        <Bar dataKey="Total Amount" fill="#3b82f6" />
-                        <Bar dataKey="Total Paid" fill="#10b981" />
-                        <Bar dataKey="Remaining" fill="#ef4444" />
+                        <Bar dataKey="Total Amount" fill="#6b7280" />
+                        <Bar dataKey="Total Paid" fill="#9ca3af" />
+                        <Bar dataKey="Remaining" fill="#d1d5db" />
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>

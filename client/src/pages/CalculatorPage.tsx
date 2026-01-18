@@ -143,7 +143,7 @@ export default function CalculatorPage() {
 
   if (calcLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
         <div className="container mx-auto max-w-6xl">
           <Skeleton className="h-12 w-48 mb-8" />
           <div className="grid gap-6">
@@ -157,7 +157,7 @@ export default function CalculatorPage() {
 
   if (!calculator) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <Card className="text-center p-8">
           <CardTitle className="text-2xl mb-4">Calculator Not Found</CardTitle>
           <Button onClick={() => setLocation("/dashboard")}>
@@ -170,7 +170,7 @@ export default function CalculatorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
@@ -178,7 +178,7 @@ export default function CalculatorPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
             {calculator.name}
           </h1>
           {calculator.description && (
@@ -188,7 +188,7 @@ export default function CalculatorPage() {
 
         {/* Celebration Banner */}
         {celebration && (
-          <Card className={`mb-6 bg-gradient-to-r ${celebration.color} text-white border-none`}>
+          <Card className="mb-6 bg-gray-800 dark:bg-gray-700 text-white border border-gray-700">
             <CardContent className="py-4">
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{celebration.emoji}</span>
@@ -205,7 +205,7 @@ export default function CalculatorPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="w-6 h-6 text-blue-600" />
+              <TrendingUp className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               Progress Overview
             </CardTitle>
           </CardHeader>
@@ -215,33 +215,33 @@ export default function CalculatorPage() {
                 <span className="text-sm font-medium">
                   {formatCurrency(totalPaid)} of {formatCurrency(calculator.totalAmount)}
                 </span>
-                <span className="text-sm font-bold text-blue-600">{progress.toFixed(1)}%</span>
+                <span className="text-sm font-bold text-gray-700 dark:text-gray-300">{progress.toFixed(1)}%</span>
               </div>
               <Progress value={progress} className="h-4" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+              <Card className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 <CardContent className="pt-6">
-                  <div className="text-sm text-green-700 font-medium mb-1">Total Paid</div>
-                  <div className="text-2xl font-bold text-green-900">{formatCurrency(totalPaid)}</div>
-                  <div className="text-xs text-green-600 mt-1">+{progress.toFixed(1)}% Complete</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Total Paid</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalPaid)}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">+{progress.toFixed(1)}% Complete</div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
+              <Card className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 <CardContent className="pt-6">
-                  <div className="text-sm text-blue-700 font-medium mb-1">Remaining</div>
-                  <div className="text-2xl font-bold text-blue-900">{formatCurrency(remaining)}</div>
-                  <div className="text-xs text-blue-600 mt-1">{(100 - progress).toFixed(1)}% To Go</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Remaining</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(remaining)}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{(100 - progress).toFixed(1)}% To Go</div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+              <Card className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 <CardContent className="pt-6">
-                  <div className="text-sm text-purple-700 font-medium mb-1">Payments</div>
-                  <div className="text-2xl font-bold text-purple-900">{payments.length}</div>
-                  <div className="text-xs text-purple-600 mt-1">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-1">Payments</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{payments.length}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                     {payments.length === 0 ? "Get started!" : payments.length === 1 ? "First payment!" : `${payments.length} milestones`}
                   </div>
                 </CardContent>
@@ -254,7 +254,7 @@ export default function CalculatorPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <DollarSign className="w-6 h-6 text-green-600" />
+              <DollarSign className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               Make a Payment
             </CardTitle>
             <CardDescription>Record a new payment towards your loan</CardDescription>
@@ -284,11 +284,11 @@ export default function CalculatorPage() {
             </div>
 
             {currency === "GBP" && (
-              <div className="mt-3 p-3 bg-blue-50 rounded-lg text-sm">
-                <div className="font-medium text-blue-900">
+              <div className="mt-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm border border-gray-200 dark:border-gray-700">
+                <div className="font-medium text-gray-900 dark:text-gray-100">
                   ≈ {formatCurrency(parseFloat(paymentAmount || "0") * exchangeRate)} USD
                 </div>
-                <div className="text-blue-600 text-xs mt-1">
+                <div className="text-gray-600 dark:text-gray-400 text-xs mt-1">
                   Rate: 1 GBP = {exchangeRate.toFixed(4)} USD
                   {lastRateUpdate && ` • Updated ${lastRateUpdate.toLocaleTimeString()}`}
                 </div>
@@ -296,7 +296,7 @@ export default function CalculatorPage() {
             )}
 
             <Button
-              className="w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+              className="w-full mt-4 bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white"
               size="lg"
               onClick={handleMakePayment}
               disabled={createPayment.isPending || !paymentAmount}
@@ -344,7 +344,7 @@ export default function CalculatorPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Calendar className="w-6 h-6 text-purple-600" />
+              <Calendar className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               Payment History
             </CardTitle>
             <CardDescription>
